@@ -1,6 +1,6 @@
 // program API, (de)serializing instruction data
 
-use solana_program::prgram_error::ProgramError;
+use solana_program::program_error::ProgramError;
 use std::convert::TryInto;
 
 use crate::error::EscrowError::InvalidInstruction;
@@ -32,7 +32,7 @@ impl EscrowInstruction {
             0 => Self::InitEscrow {
                 amount: Self::unpack_amount(rest)?,
             },
-            _ => Err(InvalidInstruction.into()),
+            _ => return Err(InvalidInstruction.into()),
         })
     }
 
@@ -40,7 +40,7 @@ impl EscrowInstruction {
         let amount = input
             .get(..8)
             .and_then(|slice| slice.try_into().ok())
-            .map(u64::from_let_bytes)
+            .map(u64::from_le_bytes)
             .ok_or(InvalidInstruction)?;
         Ok(amount)
     }

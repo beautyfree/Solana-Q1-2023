@@ -4,6 +4,6 @@
   },
   "rust-analyzer.linkedProjects": [
     "Prereqs/PaulXEscrowContract/solana-escrow/Cargo.toml",
-    "Prereqs/RustCrashCourse/hello/Cargo.toml"
+    "Prereqs/RustCrashCourse/Cargo.toml"
   ]
 }

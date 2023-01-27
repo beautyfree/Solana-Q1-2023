@@ -24,4 +24,12 @@ https://paulx.dev/blog/2021/01/14/programming-on-solana-an-introduction/
 - Program Derived Addresses do not lie on the `ed25519` curve and therefore have no private key associated with them.
 - When including a `signed` account in a program call, in all CPIs including that account made by that program inside the current instruction, the account will also be `signed`, i.e. the signature is extended to the CPIs.
 
+- There can be several instructions (ix) inside one transaction (tx) in Solana. These instructions are executed out synchronously and the tx as a whole is executed atomically. These instructions can call different programs.
+- The system program is responsible for allocating account space and assigning (internal - not user space) account ownership
+- Instructions may depend on previous instructions inside the same transaction
+- Commitment settings give downstream developers ways to query the network which differ in finality likelihood
+
+- when a program calls `invoke_signed`, the runtime uses the given seeds and the program id of the calling program to recreate the PDA and if it matches one of the given accounts inside `invoke_signed`'s arguments, that account's `signed` property will be set to true
+- If an account has no balance left, it will be purged from memory by the runtime after the transaction (you can see this when going navigating to an account that has been closed in the explorer)
+- "closing" instructions must set the data field properly, even if the intent is to have the account be purged from memory after the transaction
 #

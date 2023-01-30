@@ -1,4 +1,7 @@
 
+# devall-Solana-Q1-2023
+A monorepo for WBA solana cohort
+
 ### Intro
 https://solana.web3builders.dev/for-students/readme
 
